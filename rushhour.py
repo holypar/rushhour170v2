@@ -129,7 +129,7 @@ def boardLocations(currentState):
     return board
 
 
-
+#Prints all states/boards to screen
 def printState(currentState):
     i = 0
     while i < 36:
@@ -139,3 +139,11 @@ def printState(currentState):
     i += 1
 
 
+#Print all paths to screen
+def printPath(path):
+    i = 0
+    n = len(path)
+    while i < n:
+        printState(path[i])
+        print("\n", end = '')
+    i += 1
