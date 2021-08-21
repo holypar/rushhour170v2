@@ -8,6 +8,61 @@ from queue import PriorityQueue
 def convertInput(currentStateArray):
     return ''.join(currentStateArray)
 
+
+def isGoal(currentState):
+    if currentState[16] == 'X' and currentState[17] == 'X':
+        return True
+    return False
+
+#
+def generatePossibleStates(currentBoard, boardLocations):
+    newBoard = []
+    spaceVisited = {}
+    i = 0
+    while i < 36:
+        name = currentBoard[i]
+        # not blank and piece not already visited
+        if name != '-' and name not in spaceVisited:
+            spaceVisited[name] = True
+            vehicleOrientation = boardLocations[name].orientation
+            vehicleLength = boardLocations[name].length
+            # vehicle is horizontal
+            if vehicleOrientation == 0:
+                # move left
+                if i%6 > 0 and currentBoard[i-1] == '-':
+                    newBoardStateList = list(currentBoard)
+                    newBoardStateList[i-1] = name
+                    newBoardStateList[i+vehicleLength-1] = '-'
+                    newBoard.append(''.join(newBoardStateList))
+                # move right
+                if i%6 < (6-vehicleLength) and currentBoard[i+vehicleLength] == '-':
+                    newBoardStateList = list(currentBoard)
+                    newBoardStateList[i+vehicleLength] = name
+                    newBoardStateList[i] = '-'
+                    newBoard.append(''.join(newBoardStateList))
+            # vehicle is vertical
+            elif vehicleOrientation == 1:
+                # move up
+                if i > 5 and currentBoard[i-6] == '-':
+                    newBoardStateList = list(currentBoard)
+                    newBoardStateList[i-6] = name
+                    newBoardStateList[i+(vehicleLength-1)*6] = '-'
+                    newBoard.append(''.join(newBoardStateList))
+                # move down
+                if i < (36-vehicleLength*6) and currentBoard[i+vehicleLength*6] == '-':
+                    newBoardStateList = list(currentBoard)
+                    newBoardStateList[i+vehicleLength*6] = name
+                    newBoardStateList[i] = '-'
+                    newBoard.append(''.join(newBoardStateList))
+        i += 1
+    return newBoard
+
+
+
+
+#CLASSES -------------------------------------------------------------------------------------------
+
+
 class State:
     #g: g(n)
     #h: h(n)
