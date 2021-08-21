@@ -14,6 +14,7 @@ def isGoal(currentState):
         return True
     return False
 
+
 #
 def generatePossibleStates(currentBoard, boardLocations):
     newBoard = []
@@ -56,6 +57,16 @@ def generatePossibleStates(currentBoard, boardLocations):
                     newBoard.append(''.join(newBoardStateList))
         i += 1
     return newBoard
+
+
+
+def updateStates(currentBoard, parentBoard, exploredBoard):
+    # python disctionaries are a hash table implementation
+    # checking existance of state is only O(1)
+    if(currentBoard in exploredBoard):
+        return False
+    exploredBoard[currentBoard] = parentBoard
+    return True
 
 
 
@@ -118,5 +129,13 @@ def boardLocations(currentState):
     return board
 
 
+
+def printState(currentState):
+    i = 0
+    while i < 36:
+        print(currentState[i], end = '')
+        if i%6 == 5:
+            print("\n", end = '')
+    i += 1
 
 
