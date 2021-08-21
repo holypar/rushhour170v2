@@ -147,3 +147,22 @@ def printPath(path):
         printState(path[i])
         print("\n", end = '')
     i += 1
+
+
+
+#HEURISTICS --------------------------------------------
+#hn is the number of pieces blocking the exit
+def blockingHeuristic(currState):
+    foundXXcar = False
+    i = 12
+    # find vehicles  on third row
+    if isGoal(currState):
+        return 0
+    hn = 1
+    while i < 18:
+        if not foundXXcar and currState[i] == 'X':
+            foundXXcar = True
+        elif foundXXcar and currState[i] != '-' and currState[i] != 'X':
+            hn = hn+1
+    i += 1
+    return hn
