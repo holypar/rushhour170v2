@@ -4,7 +4,6 @@
 #rushhour(0,["--AABB", "--CDEF", "XXCDEF", "--GGHH", "------", "------"])
 
 from queue import PriorityQueue
-import math
 
 
 #This is the main function that runs the program, it asks for the heursitic type which is 0 for blocking and 1 for custom
